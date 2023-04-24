@@ -26,7 +26,7 @@ export async function deleteHabit(habitId: number): Promise<void> {
 export type CreateHabitParams = {
   name: string;
   userId: number;
-  days: string[];
+  days: number[];
   done?: boolean;
   currentSequence?: number;
   highestSequence?: number;

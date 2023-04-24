@@ -4,13 +4,13 @@ import { Habit } from "@prisma/client";
 async function createHabit(
   name: string,
   userId: number,
-  days: string[]
+  days: number[]
 ): Promise<Habit> {
   return prisma.habit.create({
     data: {
       name,
       user: { connect: { id: userId } },
-      days: { set: days },
+      days: { set: days.map(Number) },
     },
   });
 }
