@@ -1,0 +1,37 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  habits    Habit[]
+}
+
+model Habit {
+  id                Int      @id @default(autoincrement())
+  name              String
+  userId            Int
+  user              User     @relation(fields: [userId], references: [id])
+  days              String[]
+  done              Boolean  @default(false)
+  currentSequence   Int      @default(0)
+  highestSequence   Int      @default(0)
+  historic          Historic[]
+}
+
+model Historic {
+  id                Int      @id @default(autoincrement())
+  day               DateTime @default(now())
+  habitId           Int
+  habit             Habit    @relation(fields: [habitId], references: [id])
+}
