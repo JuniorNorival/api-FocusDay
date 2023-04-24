@@ -12,7 +12,7 @@ import * as r from "@/routers";
 
 const app = express();
 
-app.use(cors()).use("/users", r.usersRouter);
+app.use(cors()).use("/users", r.usersRouter).use("/habit", r.habitRouter);
 
 export function init(): Promise<Express> {
   connectDb();

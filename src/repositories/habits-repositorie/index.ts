@@ -15,9 +15,14 @@ async function createHabit(
   });
 }
 
-async function getHabitsByUserId(userId: number): Promise<Habit[]> {
+async function getHabitsByUserId(userId: number) {
   return prisma.habit.findMany({
     where: { userId },
+    select: {
+      id: true,
+      name: true,
+      days: true,
+    },
   });
 }
 
