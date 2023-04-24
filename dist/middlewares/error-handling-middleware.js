@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleApplicationErrors = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-function handleApplicationErrors(err, _req, res) {
+function handleApplicationErrors(err, _req, res, next) {
     if (err.name === "CannotEnrollBeforeStartDateError") {
         return res.status(http_status_1.default.BAD_REQUEST).send({
             message: err.message,
@@ -17,11 +17,6 @@ function handleApplicationErrors(err, _req, res) {
         });
     }
     if (err.name === "InvalidCredentialsError") {
-        return res.status(http_status_1.default.UNAUTHORIZED).send({
-            message: err.message,
-        });
-    }
-    if (err.name === "UnauthorizedError") {
         return res.status(http_status_1.default.UNAUTHORIZED).send({
             message: err.message,
         });

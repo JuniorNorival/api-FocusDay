@@ -6,7 +6,7 @@ async function createHabit(name, userId, days) {
         data: {
             name,
             user: { connect: { id: userId } },
-            days: { set: days },
+            days: { set: days.map(Number) },
         },
     });
 }

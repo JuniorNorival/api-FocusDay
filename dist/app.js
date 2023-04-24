@@ -35,11 +35,7 @@ const config_1 = require("./config/index");
 (0, config_1.loadEnv)();
 const r = __importStar(require("./routers/index"));
 const app = (0, express_1.default)();
-app
-    .use((0, cors_1.default)())
-    .use("/")
-    .use("/users", r.usersRouter)
-    .use("/habit", r.habitRouter);
+app.use((0, cors_1.default)()).use("/users", r.usersRouter).use("/habit", r.habitRouter);
 function init() {
     (0, config_1.connectDb)();
     (0, config_1.connectRedis)();
