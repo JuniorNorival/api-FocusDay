@@ -27,3 +27,5 @@ export function init(): Promise<Express> {
 export async function close(): Promise<void> {
   await disconnectDB();
 }
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server running in port: ${port}`));
