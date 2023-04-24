@@ -1,7 +1,7 @@
 import { prisma } from "../../config/index.js";
 import { Prisma } from "@prisma/client";
 
-async function create(data: object) {
+async function create(data: Prisma.UserUncheckedCreateInput) {
   return prisma.user.create({
     data,
   });
