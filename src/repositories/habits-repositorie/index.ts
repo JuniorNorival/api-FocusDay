@@ -1,34 +1,33 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/config";
 import { Habit } from "@prisma/client";
-const prisma = new PrismaClient();
 
-export async function createHabit(
+async function createHabit(
   name: string,
   userId: number,
-  days: number[]
+  days: string[]
 ): Promise<Habit> {
   return prisma.habit.create({
     data: {
       name,
       user: { connect: { id: userId } },
-      days: { set: days.map(String) },
+      days: { set: days },
     },
   });
 }
 
-export async function getHabitsByUserId(userId: number): Promise<Habit[]> {
+async function getHabitsByUserId(userId: number): Promise<Habit[]> {
   return prisma.habit.findMany({
     where: { userId },
   });
 }
 
-export async function getHabitById(habitId: number): Promise<Habit | null> {
+async function getHabitById(habitId: number): Promise<Habit | null> {
   return prisma.habit.findUnique({
     where: { id: habitId },
   });
 }
 
-export async function updateHabit(
+async function updateHabit(
   habitId: number,
   data: Partial<Habit>
 ): Promise<Habit> {
@@ -38,8 +37,18 @@ export async function updateHabit(
   });
 }
 
-export async function deleteHabit(habitId: number): Promise<void> {
+async function deleteHabit(habitId: number): Promise<void> {
   await prisma.habit.delete({
     where: { id: habitId },
   });
 }
+
+const habitRepositorie = {
+  deleteHabit,
+  updateHabit,
+  getHabitById,
+  getHabitsByUserId,
+  createHabit,
+};
+
+export default habitRepositorie;
